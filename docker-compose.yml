@@ -1,0 +1,61 @@
+services:
+  backend:
+<<<<<<< HEAD
+=======
+    build:
+      context: ./backend
+>>>>>>> d0954da (Initial compose-prod-app)
+    image: optiona-backend:1.0
+    networks:
+      - optiona-net
+
+  frontend:
+<<<<<<< HEAD
+=======
+    build:
+      context: ./frontend
+>>>>>>> d0954da (Initial compose-prod-app)
+    image: compose-prod-app-frontend
+    networks:
+      - optiona-net
+
+  ingress:
+    image: nginx:alpine
+    container_name: optiona-ingress
+    volumes:
+      - ./ingress/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - optiona-net
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    ports:
+      - "9090:9090"
+    networks:
+      - optiona-net
+  
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+    networks:
+      - optiona-net
+
+  
+networks:
+  optiona-net:
+    driver: bridge

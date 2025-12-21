@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Compose Production App</title>
+</head>
+<body>
+  <h1>Frontend Service</h1>
+  <p>Backend response:</p>
+  <pre id="output">Loading...</pre>
+
+  <script>
+fetch("/api")
+  .then(r => r.json())
+  .then(d => {
+    document.getElementById("output").innerText =
+      JSON.stringify(d, null, 2);
+  })
+  .catch(e => {
+    document.getElementById("output").innerText = e;
+  });
+  </script>
+</body>
+</html>

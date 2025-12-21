@@ -1,0 +1,12 @@
+__pycache__/
+venv/
+.env
+*.log
+.DS_Store
+
+# Kubernetes local binaries
+minikube-linux-amd64
+minikube-linux-amd64.*
+k8s/minikube-linux-amd64
+k8s/minikube-linux-amd64.*
+
