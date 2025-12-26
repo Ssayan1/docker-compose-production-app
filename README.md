@@ -46,6 +46,25 @@ Grafana
 ```
 ---
 
+
+## 🏗 System Architecture
+
+This project demonstrates a production-style containerized application deployed on Kubernetes with observability.
+
+### High-level Architecture
+![System Architecture](architecture/system-architecture.png)
+
+### Flow Overview
+1. User traffic enters through **NGINX Ingress Controller**
+2. Ingress routes requests to:
+   - **Frontend Service** (NGINX static UI)
+   - **Backend Service** (Python API)
+3. Backend exposes `/metrics`
+4. **Prometheus** scrapes metrics
+5. **Grafana** visualizes metrics & alerts
+
+---
+
 ## 🛠 Tech Stack
 
 | Category | Tools |
