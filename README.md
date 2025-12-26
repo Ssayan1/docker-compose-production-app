@@ -1,211 +1,166 @@
-<<<<<<< HEAD
-# Production-Grade Docker Compose Application
+# Docker Compose Production App (DevOps / SRE Project)
 
-A production-style microservices application built with Docker Compose, featuring
-frontend, backend, ingress routing, health checks, scaling, and observability.
+A **production-grade microservices application** demonstrating real-world
+**DevOps, Kubernetes, CI/CD, and SRE observability practices**.
 
----
-
-## 🚀 Architecture Overview
-
-- Frontend: Nginx-based UI service
-- Backend: Python Flask API
-- Ingress: Nginx reverse proxy
-- Networking: Docker bridge network
-- Observability: Prometheus metrics
-- Scaling: Multiple backend replicas
+This project simulates how modern backend + frontend services are built,
+containerized, deployed, monitored, and continuously delivered in production.
 
 ---
 
-## Architecture Diagram (conceptual)
+## 🚀 Project Overview
 
-```lua
-Browser
-   |
-   v
-[ Nginx Ingress ]
-   |
-   +--> Frontend (Nginx)
-   |
-   +--> Backend (Flask, scaled)
-```
+This project consists of:
+- A **Python backend API** exposing business logic and Prometheus metrics
+- An **NGINX-based frontend** consuming the backend
+- **Dockerized services** with production-ready images
+- **CI/CD pipeline** using GitHub Actions
+- **Kubernetes deployment** with Ingress
+- **Monitoring & alerting** using Prometheus and Grafana
 
----
-
-## 🛠️ Tech Stack
-
-- Docker & Docker Compose
-- Python (Flask)
-- Nginx
-- Prometheus
-- Linux networking concepts
+The goal is to demonstrate **end-to-end DevOps & SRE workflows**, not just application code.
 
 ---
 
-## ⚙️ Features Implemented
+## 🧱 Architecture Overview
 
-- Multi-container Docker Compose setup
-- Path-based routing using Nginx ingress
-- Service discovery via Docker DNS
-- Backend health checks
-- Horizontal scaling (--scale)
-- Prometheus metrics endpoint
-- Graceful failure handling
-- Environment-based configuration
+User
+│
+▼
+NGINX Ingress
+│
+├── Frontend Service (NGINX)
+│
+└── Backend Service (Python API)
+│
+▼
+Prometheus Metrics (/metrics)
+│
+▼
+Prometheus
+│
+▼
+Grafana
 
----
-
-## ▶️ How to Run
-=======
-# Production-Style Microservices App (Docker → Kubernetes)
-
-## 🔥 Overview
-This project demonstrates a **production-grade DevOps workflow**:
-- Containerized microservices
-- Docker Compose for local orchestration
-- Kubernetes migration with Ingress
-- Monitoring using Prometheus & Grafana
-
-Built as part of my preparation for a **Junior Cloud / DevOps Engineer role**.
 
 ---
 
-## 🧱 Architecture
+## 🛠 Tech Stack
 
-Frontend (Nginx)
-        |
-Ingress (Nginx)
-        |
-Backend (Flask API)
-        |
-Prometheus → Grafana
-
----
-
-## ⚙️ Tech Stack
-- Docker, Docker Compose
-- Kubernetes (Minikube)
-- Nginx (Reverse Proxy / Ingress)
-- Flask (Backend API)
-- Prometheus (Monitoring)
-- Grafana (Visualization)
+| Category | Tools |
+|--------|------|
+| Containers | Docker |
+| CI/CD | GitHub Actions |
+| Orchestration | Kubernetes (Minikube) |
+| Networking | Kubernetes Services, Ingress |
+| Monitoring | Prometheus |
+| Visualization | Grafana |
+| Alerts | Prometheus Alert Rules |
 
 ---
 
-## 🚀 Features
-- Stateless backend with multiple replicas
-- Load balancing via Kubernetes Service
-- Ingress-based routing (`/` → frontend, `/api` → backend)
-- Application metrics exposed at `/metrics`
-- Prometheus scraping backend metrics
-- Grafana dashboards for visualization
-- Health checks and service dependency management
+## 🔄 CI/CD Pipeline (GitHub Actions)
+
+The pipeline automatically:
+1. Triggers on `git push` to `main`
+2. Builds Docker images for:
+   - Backend
+   - Frontend
+3. Tags images with version
+4. Pushes images to **Docker Hub**
+5. Uses **GitHub Secrets** for credentials
+
+### 🔐 Secrets Used
+- `DOCKERHUB_USERNAME`
+- `DOCKERHUB_TOKEN`
+
+This ensures **secure, automated image delivery**.
 
 ---
 
-## 🐳 Docker Compose (Local)
+## 📦 Containerization Strategy
 
- ▶️ How to Run
->>>>>>> d0954da (Initial compose-prod-app)
+### Backend
+- Python 3.11 base image
+- Optimized layers
+- Exposes `/metrics` for Prometheus
 
+### Frontend
+- NGINX Alpine image
+- Static frontend served via NGINX
+- Lightweight and production-ready
+
+---
+
+## ☸️ Kubernetes Deployment
+
+- **Deployments** for backend & frontend
+- **Services** for internal discovery
+- **Ingress (NGINX)** for external access
+- **Rolling updates** supported
+- **Namespace isolation** (`monitoring`)
+
+---
+
+## 📊 Monitoring & Alerting (SRE Focus)
+
+### Metrics Collected
+- Service availability (`up`)
+- CPU usage
+- Memory usage
+- Process metrics
+
+### Alerts Configured
+| Alert | Condition |
+|-----|----------|
+| BackendDown | Backend unavailable for 30s |
+| BackendHighCPU | CPU usage > threshold |
+| BackendHighMemory | Memory > 200MB |
+
+Grafana dashboards visualize:
+- CPU
+- Memory
+- Uptime
+- Service health
+
+---
+
+## 🧪 Run Locally (Dev/Test)
+
+### Option 1: Docker Compose
 ```bash
 docker compose up -d
 ```
-Access:
-
-<<<<<<< HEAD
-- Application: http://localhost:8080
-- Backend API: http://localhost:8080/api
-- Metrics: http://localhost:5000/metrics
-=======
-- Frontend: http://localhost:8080
-- Backend: http://localhost:5000
-
----
-
-## ☸️ Kubernetes (Minikube)
-
+### Option 2: Kubernetes (Minikube)
 ```bash
 minikube start
 kubectl apply -f k8s/
 ```
-Ingress:
 
-```bash
-http://app.local
-http://app.local/api
-```
->>>>>>> d0954da (Initial compose-prod-app)
+Access services via Ingress or port-forwarding.
 
 ---
 
-## 🔁 Scaling Backend
+## 🧠 Key Learnings
 
-```bash
-docker compose up -d --scale backend=3
-```
-
----
-
-<<<<<<< HEAD
-## 🧪 Health Checks
-
-Backend service includes health checks to ensure only healthy containers serve traffic.
+- Designing production-ready Docker images
+- CI/CD automation with GitHub Actions
+- Kubernetes service discovery & ingress
+- Prometheus metrics & alert rules
+- Debugging real CI and deployment issues
+- Observability-first mindset (SRE principles)
 
 ---
 
-## 📊 Observability
+## 📌 Future Improvements
 
-- Exposes Prometheus-compatible metrics
-- Ready for Grafana dashboards
-
-=======
-## 📊 Monitoring
-
-- Prometheus UI
-- Grafana dashboards
-- Backend metrics scraped automatically
+- Add Horizontal Pod Autoscaling (HPA)
+- Introduce Helm charts
+- Centralized logging (ELK / Loki)
+- Canary deployments
+- Multi-environment CI (dev/stage/prod)
 
 ---
 
-## 📸 Screenshots
 
-See /screenshots directory:
-
-- Application UI
-- Prometheus targets
-- Grafana dashboards
->>>>>>> d0954da (Initial compose-prod-app)
----
-
-## 🧠 What I Learned
-
-<<<<<<< HEAD
-- Docker networking and service discovery
-- Reverse proxy behavior and routing issues
-- Debugging 502 / 301 / DNS failures
-- Container health checks and dependency handling
-- Production-style Compose patterns
-
----
-
-## 🎯 Why This Project Matters
-
-This project demonstrates real-world DevOps skills including debugging,
-service orchestration, and production readiness — beyond basic container usage.
-=======
-- Container image lifecycle
-- Service discovery in Docker & Kubernetes
-- Ingress vs reverse proxy
-- Debugging networking issues
-- Production-style monitoring setup
-
----
-
-## 🎯 Next Improvements
-
-- Helm charts
-- Horizontal Pod Autoscaling
-- CI/CD pipeline
-- Cloud deployment (AWS / GCP)
->>>>>>> d0954da (Initial compose-prod-app)
+Aspiring Junior Cloud / DevOps / SRE Engineer (2025)
