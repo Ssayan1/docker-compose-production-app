@@ -24,6 +24,7 @@ The goal is to demonstrate **end-to-end DevOps & SRE workflows**, not just appli
 
 ## 🧱 Architecture Overview
 
+```
 User
 │
 ▼
@@ -42,7 +43,7 @@ Prometheus
 ▼
 Grafana
 
-
+```
 ---
 
 ## 🛠 Tech Stack
