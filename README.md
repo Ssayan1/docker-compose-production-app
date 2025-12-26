@@ -1,10 +1,7 @@
-# Docker Compose Production App (DevOps / SRE Project)
+# Docker Compose Production App
 
-A **production-grade microservices application** demonstrating real-world
-**DevOps, Kubernetes, CI/CD, and SRE observability practices**.
-
-This project simulates how modern backend + frontend services are built,
-containerized, deployed, monitored, and continuously delivered in production.
+Production-style microservices application deployed on Kubernetes
+with CI/CD, monitoring, and alerting.
 
 ---
 
