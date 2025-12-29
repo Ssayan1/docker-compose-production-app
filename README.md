@@ -1,21 +1,54 @@
-# Docker Compose Production App
+## 🚀 Docker Compose → Kubernetes → SRE Observability Project
+### 📌 Project Summary
+This project demonstrates a production-style microservices application built using Docker, Kubernetes, and SRE best practices.
 
-Production-style microservices application deployed on Kubernetes
-with CI/CD, monitoring, and alerting.
+It showcases the complete DevOps/SRE lifecycle:
+
+- Containerization
+- Kubernetes orchestration
+- Autoscaling (HPA)
+- Monitoring & alerting
+- Golden Signals dashboards
+- Failure testing & resilience
+
+This repository is designed as a portfolio-ready project for Junior Cloud / DevOps / SRE roles.
 
 ---
 
-## 🚀 Project Overview
+## 🧱 System Architecture
 
-This project consists of:
-- A **Python backend API** exposing business logic and Prometheus metrics
-- An **NGINX-based frontend** consuming the backend
-- **Dockerized services** with production-ready images
-- **CI/CD pipeline** using GitHub Actions
-- **Kubernetes deployment** with Ingress
-- **Monitoring & alerting** using Prometheus and Grafana
+Architecture Overview
+- Frontend Service – Client-facing web app
+- Backend Service (Flask API) – Serves API + Prometheus metrics
+- Kubernetes (Minikube) – Orchestration & self-healing
+- Prometheus – Metrics collection & alerting
+- Grafana – Visualization (Golden Signals dashboard)
+- Horizontal Pod Autoscaler (HPA) – CPU-based autoscaling
 
-The goal is to demonstrate **end-to-end DevOps & SRE workflows**, not just application code.
+---
+
+## 🐳 Containerization
+
+- Dockerfiles for backend & frontend
+- Local development via Docker Compose
+- CI-based builds via GitHub Actions
+- Images pushed automatically to Docker Hub
+
+---
+
+## ☸️ Kubernetes Deployment
+
+Core Features
+- Deployments & Services
+- Resource requests & limits
+- Liveness & readiness probes
+- Kubernetes self-healing
+- Metrics Server enabled
+
+Autoscaling (HPA)
+
+- Backend automatically scales based on CPU utilization
+- Verified via kubectl top and live load testing
 
 ---
 
@@ -43,12 +76,7 @@ Grafana
 ```
 ---
 
-
-## 🏗 System Architecture
-
-This project demonstrates a production-style containerized application deployed on Kubernetes with observability.
-
-### High-level Architecture
+### Architecture
 ![System Architecture](architecture/system-architecture.png)
 
 ### Flow Overview
@@ -76,26 +104,7 @@ This project demonstrates a production-style containerized application deployed 
 
 ---
 
-## 🔄 CI/CD Pipeline (GitHub Actions)
-
-The pipeline automatically:
-1. Triggers on `git push` to `main`
-2. Builds Docker images for:
-   - Backend
-   - Frontend
-3. Tags images with version
-4. Pushes images to **Docker Hub**
-5. Uses **GitHub Secrets** for credentials
-
-### 🔐 Secrets Used
-- `DOCKERHUB_USERNAME`
-- `DOCKERHUB_TOKEN`
-
-This ensures **secure, automated image delivery**.
-
----
-
-## 📦 Containerization Strategy
+## Containerization Strategy
 
 ### Backend
 - Python 3.11 base image
@@ -109,40 +118,7 @@ This ensures **secure, automated image delivery**.
 
 ---
 
-## ☸️ Kubernetes Deployment
-
-- **Deployments** for backend & frontend
-- **Services** for internal discovery
-- **Ingress (NGINX)** for external access
-- **Rolling updates** supported
-- **Namespace isolation** (`monitoring`)
-
----
-
-## 📊 Monitoring & Alerting (SRE Focus)
-
-### Metrics Collected
-- Service availability (`up`)
-- CPU usage
-- Memory usage
-- Process metrics
-
-### Alerts Configured
-| Alert | Condition |
-|-----|----------|
-| BackendDown | Backend unavailable for 30s |
-| BackendHighCPU | CPU usage > threshold |
-| BackendHighMemory | Memory > 200MB |
-
-Grafana dashboards visualize:
-- CPU
-- Memory
-- Uptime
-- Service health
-
----
-
-## 🧪 Run Locally (Dev/Test)
+# 🧪 Run Locally (Dev/Test)
 
 ### Option 1: Docker Compose
 ```bash
@@ -158,26 +134,134 @@ Access services via Ingress or port-forwarding.
 
 ---
 
-## 🧠 Key Learnings
+## 📊 Observability – Golden Signals (Grafana)
 
-- Designing production-ready Docker images
+The Grafana dashboard implements SRE Golden Signals:
+
+Panels Included:
+
+1. Availability – Backend UP / DOWN
+2. Traffic – Requests per second (RPS)
+3. Latency – P95 request latency
+4. CPU Usage – Saturation
+5. Memory Usage – Saturation
+6. Errors – 5xx error rate (no errors observed)
+
+### 📸 Dashboard Screenshot:
+
+![Grafana Dashboard](screenshots/grafana-golden-signals.png)
+
+---
+
+## 🚨 Monitoring & Alerting (Prometheus)
+
+Prometheus is configured with custom alert rules:
+
+Alert Rules:
+
+- BackendDown – Service unavailable
+- BackendHighCPU – CPU usage threshold breached
+- BackendHighMemory – Memory usage exceeded
+
+### 📸 Prometheus Alerts View:
+
+![Prometheus Alerts](screenshots/prometheus-alerts.png)
+
+### 📸 Prometheus Targets Status:
+
+![Prometheus Targets](screenshots/prometheus-targets.png)
+
+---
+
+## 🧪 Failure Testing & Resilience
+
+Tests Performed
+
+- Manually deleted backend pods
+- Kubernetes recreated pods automatically
+- Temporary request failures observed
+- Prometheus metrics reflected downtime
+- Grafana availability panel updated in real time
+
+This validates:
+
+- Kubernetes self-healing
+- Monitoring accuracy
+- Alert readiness
+
+### 📸 Failure / Recovery Evidence:
+
+---
+
+## 📈 Backend Metrics
+
+The backend exposes Prometheus metrics at:
+
+```bash
+/metrics
+```
+
+Metrics Collected
+
+- HTTP request count
+- Request latency histogram
+- CPU usage
+- Memory usage
+
+Metrics are scraped directly by Prometheus
+
+---
+
+## 🔄 CI/CD Pipeline
+
+GitHub Actions workflow performs:
+
+- Image build (frontend & backend)
+- Tagging
+- Push to Docker Hub
+- Triggered on every push to main
+
+📸 GitHub Actions CI Run:
+
+---
+
+## 📂 Repository Structure
+ 
+```bash
+.
+├── backend/
+│   └── app.py
+├── frontend/
+├── docker-compose.yml
+├── k8s/
+│   ├── backend/
+│   ├── frontend/
+│   └── monitoring/
+├── prometheus/
+│   └── alerts/
+├── screenshots/
+│   ├── architecture.png
+│   ├── grafana-golden-signals.png
+│   ├── prometheus-alerts.png
+│   ├── prometheus-targets.png
+│   ├── failure-testing.png
+│   └── github-actions-ci.png
+└── README.md
+
+```
+
+---
+
+## 🎯 Skills Demonstrated
+
+- Docker & container best practices
+- Kubernetes deployments & autoscaling
+- Prometheus metrics & alerting
+- Grafana dashboards (Golden Signals)
+- Failure testing & resilience engineering
 - CI/CD automation with GitHub Actions
-- Kubernetes service discovery & ingress
-- Prometheus metrics & alert rules
-- Debugging real CI and deployment issues
-- Observability-first mindset (SRE principles)
-
----
-
-## 📌 Future Improvements
-
-- Add Horizontal Pod Autoscaling (HPA)
-- Introduce Helm charts
-- Centralized logging (ELK / Loki)
-- Canary deployments
-- Multi-environment CI (dev/stage/prod)
+- Production & SRE mindset 
 
 ---
 
 
-Aspiring Junior Cloud / DevOps / SRE Engineer (2025)
