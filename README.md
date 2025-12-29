@@ -132,6 +132,11 @@ kubectl apply -f k8s/
 
 Access services via Ingress or port-forwarding.
 
+Access:
+
+- Frontend → http://localhost:…
+- Backend → curl/port-forward…
+
 ---
 
 ## 📊 Observability – Golden Signals (Grafana)
@@ -170,6 +175,21 @@ Alert Rules:
 ### 📸 Prometheus Targets Status:
 
 ![Prometheus Targets](screenshots/prometheus-targets.png)
+
+---
+
+## 📊 Live Grafana Dashboard (Snapshot)
+
+🔗 **Public Read-Only Snapshot**  
+https://snapshots.raintank.io/dashboard/snapshot/s1jwnixPQ1TxIXAnT3MB35mmSAu9Xf94?orgId=0
+
+> This snapshot shows Golden Signals monitoring for the backend service:
+> - Traffic (RPS)
+> - Error Rate
+> - Latency
+> - CPU & Memory usage
+> - Service Availability
+
 
 ---
 
