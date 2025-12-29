@@ -149,7 +149,7 @@ Panels Included:
 
 ### 📸 Dashboard Screenshot:
 
-![Grafana Dashboard](screenshots/grafana-golden-signals.png)
+![Grafana Dashboard](screenshots/grafana-golden-signal.png)
 
 ---
 
